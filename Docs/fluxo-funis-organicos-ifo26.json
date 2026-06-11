@@ -1,0 +1,807 @@
+{
+  "ns": "SUBSTITUIR_PELO_NS_DO_FLUXO_ABERTO",
+  "client_id": "a1b2c3d4-e5f6-4789-abcd-ef0123456789",
+  "batch": {
+    "contents": [
+
+      {
+        "type": "instagram",
+        "_oid": "bloco-01-saudacao",
+        "namespace": "SUBSTITUIR_PELO_NS_DO_FLUXO_ABERTO",
+        "caption": "BLOCO 1 — Saudação",
+        "content_id": null,
+        "removed": false,
+        "target": null,
+        "private_reply": "private_reply",
+        "one_time_notify_reason_id": null,
+        "$fbMessagingType": "INSIDE_24_HOURS",
+        "quick_replies": {
+          "buttons": [],
+          "settings": {
+            "validation_message": null,
+            "skip_button_caption": null,
+            "limit_failed": null,
+            "timeout": null
+          }
+        },
+        "messages": [
+          {
+            "_oid": "msg-01-delay",
+            "type": "delay",
+            "time": 2,
+            "show_typing": false,
+            "keyboard": []
+          },
+          {
+            "_oid": "msg-01-texto",
+            "type": "text",
+            "content": {
+              "text": "Oeee Estrategista! 🤩🤩🤩 Aqui é o Sun, o assistente robô mais top das galáxias do Triwer 🥳🥳\n\nVi que você comentou no post sobre largar a linha editorial — e olha, a Chefia mandou eu te buscar aqui no direct porque tem coisa BOA guardada pra você 🔥\n\nPara continuar é só clicar aí em baixo 👇🏻"
+            },
+            "keyboard": [
+              {
+                "_oid": "btn-01-continuar",
+                "type": "content",
+                "caption": "👉🏻 Continuar 👈🏻",
+                "_content_oid": "bloco-02-acoes",
+                "is_smart_link": false,
+                "target": null,
+                "webview_size": null,
+                "do_not_track": false
+              }
+            ]
+          }
+        ]
+      },
+
+      {
+        "type": "action_group",
+        "_oid": "bloco-02-acoes",
+        "namespace": "SUBSTITUIR_PELO_NS_DO_FLUXO_ABERTO",
+        "caption": "BLOCO 2 — Ações (optin + tag + origem)",
+        "content_id": null,
+        "removed": false,
+        "target": {
+          "_content_oid": "bloco-03-condicao-aluno"
+        },
+        "actions": [
+          {
+            "_oid": "acao-02-optin",
+            "type": "set_instagram_optin"
+          },
+          {
+            "_oid": "acao-02-tag-fluxo",
+            "type": "add_tag",
+            "tag_id": 0
+          },
+          {
+            "_oid": "acao-02-campo-origem",
+            "type": "set_custom_field_value",
+            "field_id": "cuf_origem_fluxo",
+            "operation": "set",
+            "value": "ifo26-funis-organicos"
+          },
+          {
+            "_oid": "acao-02-campo-ig",
+            "type": "set_custom_field_value",
+            "field_id": "cuf_ig_username",
+            "operation": "set",
+            "value": "{{ig_username}}"
+          }
+        ]
+      },
+
+      {
+        "type": "multi_condition",
+        "_oid": "bloco-03-condicao-aluno",
+        "namespace": "SUBSTITUIR_PELO_NS_DO_FLUXO_ABERTO",
+        "caption": "BLOCO 3 — Condição: já é aluno?",
+        "content_id": null,
+        "removed": false,
+        "conditions": [
+          {
+            "_oid": "cond-03-aluno",
+            "filter": {
+              "groups": [
+                {
+                  "items": [
+                    {
+                      "_oid": "cond-03-item-tag",
+                      "field": "tag",
+                      "operator": "IS",
+                      "type": "tag",
+                      "value": "aluno-cp"
+                    }
+                  ],
+                  "operator": "AND"
+                }
+              ],
+              "operator": "AND"
+            },
+            "target": {
+              "_content_oid": "bloco-04-caminho-aluno"
+            }
+          }
+        ],
+        "default_target": {
+          "_content_oid": "bloco-05-aquecimento"
+        },
+        "default_target_oid": "cond-03-default"
+      },
+
+      {
+        "type": "instagram",
+        "_oid": "bloco-04-caminho-aluno",
+        "namespace": "SUBSTITUIR_PELO_NS_DO_FLUXO_ABERTO",
+        "caption": "BLOCO 4 — Caminho: já é aluno",
+        "content_id": null,
+        "removed": false,
+        "target": null,
+        "private_reply": null,
+        "one_time_notify_reason_id": null,
+        "$fbMessagingType": "INSIDE_24_HOURS",
+        "quick_replies": {
+          "buttons": [],
+          "settings": {
+            "validation_message": null,
+            "skip_button_caption": null,
+            "limit_failed": null,
+            "timeout": null
+          }
+        },
+        "messages": [
+          {
+            "_oid": "msg-04-delay",
+            "type": "delay",
+            "time": 2,
+            "show_typing": false,
+            "keyboard": []
+          },
+          {
+            "_oid": "msg-04-texto",
+            "type": "text",
+            "content": {
+              "text": "Ei {{cuf_8146798}}... eu sei que você já garantiu seu ingresso pro Workshop Funis Orgânicos! 😂😂\n\nNa estratégia da Chefia esse seria o momento do pitch. Mas você já sabe como funciona né? 😅\n\nEntão cuida! Nos dias 30 e 31 de maio a gente se vê ao vivo no Zoom. Chega com energia porque vai ser dois dias construindo funil do zero 🔥🔥\n\nNos vemos lá! 🚀"
+            },
+            "keyboard": []
+          }
+        ]
+      },
+
+      {
+        "type": "instagram",
+        "_oid": "bloco-05-aquecimento",
+        "namespace": "SUBSTITUIR_PELO_NS_DO_FLUXO_ABERTO",
+        "caption": "BLOCO 5 — Aquecimento (contraste + dor)",
+        "content_id": null,
+        "removed": false,
+        "target": null,
+        "private_reply": null,
+        "one_time_notify_reason_id": null,
+        "$fbMessagingType": "INSIDE_24_HOURS",
+        "quick_replies": {
+          "buttons": [],
+          "settings": {
+            "validation_message": null,
+            "skip_button_caption": null,
+            "limit_failed": null,
+            "timeout": null
+          }
+        },
+        "messages": [
+          {
+            "_oid": "msg-05-delay",
+            "type": "delay",
+            "time": 3,
+            "show_typing": false,
+            "keyboard": []
+          },
+          {
+            "_oid": "msg-05-texto-1",
+            "type": "text",
+            "content": {
+              "text": "Pois então {{cuf_8146798}}...\n\nA maioria dos criadores de conteúdo passa anos postando 3x por dia, testando formato, seguindo linha editorial certinho...\n\nE no final do mês? Os seguidores continuam não comprando. 😮‍💨"
+            },
+            "keyboard": []
+          },
+          {
+            "_oid": "msg-05-delay-2",
+            "type": "delay",
+            "time": 4,
+            "show_typing": false,
+            "keyboard": []
+          },
+          {
+            "_oid": "msg-05-texto-2",
+            "type": "text",
+            "content": {
+              "text": "A Chefia já passou por isso também. Acredite se quiser... 🥶🥶\n\nPostava, engajava, crescia... e vendia pouco.\n\nAté que ela parou de organizar conteúdo por TEMAS e começou a construir por OBJETIVOS.\n\nFoi aí que a coisa virou. 🔥"
+            },
+            "keyboard": []
+          },
+          {
+            "_oid": "msg-05-delay-3",
+            "type": "delay",
+            "time": 4,
+            "show_typing": false,
+            "keyboard": []
+          },
+          {
+            "_oid": "msg-05-texto-3",
+            "type": "text",
+            "content": {
+              "text": "E tem mais uma coisa que eu preciso te revelar sobre isso...\n\nPosso continuar? 👇🏻"
+            },
+            "keyboard": [
+              {
+                "_oid": "btn-05-sim-1",
+                "type": "content",
+                "caption": "Conta logooo! 🤯",
+                "_content_oid": "bloco-06-permissao-demo",
+                "is_smart_link": false,
+                "target": null,
+                "webview_size": null,
+                "do_not_track": false
+              },
+              {
+                "_oid": "btn-05-sim-2",
+                "type": "content",
+                "caption": "Cuida, fala Sun! 🔥",
+                "_content_oid": "bloco-06-permissao-demo",
+                "is_smart_link": false,
+                "target": null,
+                "webview_size": null,
+                "do_not_track": false
+              }
+            ]
+          }
+        ]
+      },
+
+      {
+        "type": "instagram",
+        "_oid": "bloco-06-permissao-demo",
+        "namespace": "SUBSTITUIR_PELO_NS_DO_FLUXO_ABERTO",
+        "caption": "BLOCO 6 — Demonstração do método (funil orgânico)",
+        "content_id": null,
+        "removed": false,
+        "target": null,
+        "private_reply": null,
+        "one_time_notify_reason_id": null,
+        "$fbMessagingType": "INSIDE_24_HOURS",
+        "quick_replies": {
+          "buttons": [],
+          "settings": {
+            "validation_message": null,
+            "skip_button_caption": null,
+            "limit_failed": null,
+            "timeout": null
+          }
+        },
+        "messages": [
+          {
+            "_oid": "msg-06-delay",
+            "type": "delay",
+            "time": 3,
+            "show_typing": false,
+            "keyboard": []
+          },
+          {
+            "_oid": "msg-06-texto-1",
+            "type": "text",
+            "content": {
+              "text": "O funil orgânico funciona com 4 objetivos de conteúdo:\n\n✅ Descoberta — atrai quem ainda não te conhece\n✅ Oportunidade — abre a conversa de venda\n✅ Provocação — mexe com a dor certa\n✅ Autoridade — consolida a decisão de compra\n\nSem tema fixo. Sem pauta engessada. Só resultado. 🤑"
+            },
+            "keyboard": []
+          },
+          {
+            "_oid": "msg-06-delay-2",
+            "type": "delay",
+            "time": 6,
+            "show_typing": false,
+            "keyboard": []
+          },
+          {
+            "_oid": "msg-06-texto-2",
+            "type": "text",
+            "content": {
+              "text": "E olha que irônico... esse direct aqui também é um funil orgânico. 😏\n\nO post te atraiu (Descoberta), você comentou, e agora eu estou te mostrando o método ao vivo enquanto a gente conversa.\n\nVocê já está dentro do funil {{cuf_8146798}} 😅😅"
+            },
+            "keyboard": []
+          },
+          {
+            "_oid": "msg-06-delay-3",
+            "type": "delay",
+            "time": 5,
+            "show_typing": false,
+            "keyboard": []
+          },
+          {
+            "_oid": "msg-06-texto-3",
+            "type": "text",
+            "content": {
+              "text": "Mas eu tenho algo MUITO IMPORTANTE pra te revelar ainda... 😱\n\nPosso?"
+            },
+            "keyboard": [
+              {
+                "_oid": "btn-06-sim-1",
+                "type": "content",
+                "caption": "Conta pra mim Sun 😅",
+                "_content_oid": "bloco-07-prova-social",
+                "is_smart_link": false,
+                "target": null,
+                "webview_size": null,
+                "do_not_track": false
+              },
+              {
+                "_oid": "btn-06-sim-2",
+                "type": "content",
+                "caption": "Siiiim! 🤑",
+                "_content_oid": "bloco-07-prova-social",
+                "is_smart_link": false,
+                "target": null,
+                "webview_size": null,
+                "do_not_track": false
+              }
+            ]
+          }
+        ]
+      },
+
+      {
+        "type": "instagram",
+        "_oid": "bloco-07-prova-social",
+        "namespace": "SUBSTITUIR_PELO_NS_DO_FLUXO_ABERTO",
+        "caption": "BLOCO 7 — Prova social + resultado",
+        "content_id": null,
+        "removed": false,
+        "target": null,
+        "private_reply": null,
+        "one_time_notify_reason_id": null,
+        "$fbMessagingType": "INSIDE_24_HOURS",
+        "quick_replies": {
+          "buttons": [],
+          "settings": {
+            "validation_message": null,
+            "skip_button_caption": null,
+            "limit_failed": null,
+            "timeout": null
+          }
+        },
+        "messages": [
+          {
+            "_oid": "msg-07-delay",
+            "type": "delay",
+            "time": 3,
+            "show_typing": false,
+            "keyboard": []
+          },
+          {
+            "_oid": "msg-07-texto-1",
+            "type": "text",
+            "content": {
+              "text": "Esse método de funil orgânico existe desde 2022.\n\nToda vez que a Chefia abre o Workshop Funis Orgânicos, esgota. 🔥\n\nE os resultados que chegam depois... olha o que os alunos das edições anteriores falam 👇🏻"
+            },
+            "keyboard": []
+          },
+          {
+            "_oid": "msg-07-delay-2",
+            "type": "delay",
+            "time": 8,
+            "show_typing": false,
+            "keyboard": []
+          },
+          {
+            "_oid": "msg-07-texto-2",
+            "type": "text",
+            "content": {
+              "text": "[ INSERIR CARD COM DEPOIMENTO/RESULTADO AQUI ]\n\n⚠️ Substitua essa mensagem por uma imagem com print de resultado ou depoimento de aluno de edição anterior."
+            },
+            "keyboard": []
+          },
+          {
+            "_oid": "msg-07-delay-3",
+            "type": "delay",
+            "time": 8,
+            "show_typing": false,
+            "keyboard": []
+          },
+          {
+            "_oid": "msg-07-texto-3",
+            "type": "text",
+            "content": {
+              "text": "Foi aí que me impressionei mais ainda com esse método... 🤯🤯\n\nE tem mais uma coisa que você precisa saber antes de eu ir embora...\n\nPosso te dizer o que é {{cuf_8146798}}?"
+            },
+            "keyboard": [
+              {
+                "_oid": "btn-07-sim-1",
+                "type": "content",
+                "caption": "Só se for agora! 😱",
+                "_content_oid": "bloco-08-smart-delay",
+                "is_smart_link": false,
+                "target": null,
+                "webview_size": null,
+                "do_not_track": false
+              },
+              {
+                "_oid": "btn-07-sim-2",
+                "type": "content",
+                "caption": "Falaaa logo Sun 🤑",
+                "_content_oid": "bloco-08-smart-delay",
+                "is_smart_link": false,
+                "target": null,
+                "webview_size": null,
+                "do_not_track": false
+              }
+            ]
+          }
+        ]
+      },
+
+      {
+        "type": "smart_delay",
+        "_oid": "bloco-08-smart-delay",
+        "namespace": "SUBSTITUIR_PELO_NS_DO_FLUXO_ABERTO",
+        "caption": "BLOCO 8 — Smart Delay 20min (deixa digerir)",
+        "content_id": null,
+        "removed": false,
+        "limit_time": null,
+        "shift_time": {
+          "unit": "minutes",
+          "value": "20"
+        },
+        "target": {
+          "_content_oid": "bloco-09-pitch"
+        },
+        "wait_until": null
+      },
+
+      {
+        "type": "instagram",
+        "_oid": "bloco-09-pitch",
+        "namespace": "SUBSTITUIR_PELO_NS_DO_FLUXO_ABERTO",
+        "caption": "BLOCO 9 — Pitch + âncora + urgência",
+        "content_id": null,
+        "removed": false,
+        "target": null,
+        "private_reply": null,
+        "one_time_notify_reason_id": null,
+        "$fbMessagingType": "INSIDE_24_HOURS",
+        "quick_replies": {
+          "buttons": [],
+          "settings": {
+            "validation_message": null,
+            "skip_button_caption": null,
+            "limit_failed": null,
+            "timeout": null
+          }
+        },
+        "messages": [
+          {
+            "_oid": "msg-09-delay",
+            "type": "delay",
+            "time": 3,
+            "show_typing": false,
+            "keyboard": []
+          },
+          {
+            "_oid": "msg-09-texto-1",
+            "type": "text",
+            "content": {
+              "text": "Oi sumido {{cuf_8146798}}! Tô de volta com a última coisa que prometi te contar 😅\n\nA Chefia tem uma oportunidade irrecusável pra você..."
+            },
+            "keyboard": []
+          },
+          {
+            "_oid": "msg-09-delay-2",
+            "type": "delay",
+            "time": 4,
+            "show_typing": false,
+            "keyboard": []
+          },
+          {
+            "_oid": "msg-09-texto-2",
+            "type": "text",
+            "content": {
+              "text": "Nos dias 30 e 31 de maio, das 09h30 às 18h, a Chefia vai abrir o Workshop Funis Orgânicos ao vivo via Zoom.\n\nSão 2 dias construindo junto com ela 5 funis orgânicos completos — a partir dos conteúdos que você JÁ produz pro Instagram. 🔥\n\nSem precisar criar do zero. Sem fórmula genérica. Funil feito pra você, ao vivo."
+            },
+            "keyboard": []
+          },
+          {
+            "_oid": "msg-09-delay-3",
+            "type": "delay",
+            "time": 6,
+            "show_typing": false,
+            "keyboard": []
+          },
+          {
+            "_oid": "msg-09-texto-3",
+            "type": "text",
+            "content": {
+              "text": "⛔ Esse workshop 1x ao ano já vai para sua 4ª edição desde 2022\n\n✅ Ingresso Lote 1: R$ 67,00\n\n⚠️ Toda sexta o preço sobe: R$ 77 → R$ 87 → R$ 97\n\nSe você tá lendo isso agora, o Lote 1 ainda pode estar disponível. Mas eu não prometo nada não 😅😅"
+            },
+            "keyboard": []
+          },
+          {
+            "_oid": "msg-09-delay-4",
+            "type": "delay",
+            "time": 5,
+            "show_typing": false,
+            "keyboard": []
+          },
+          {
+            "_oid": "msg-09-texto-4",
+            "type": "text",
+            "content": {
+              "text": "Posso liberar o link com o ingresso pra você antes que o preço suba? 👇🏻"
+            },
+            "keyboard": [
+              {
+                "_oid": "btn-09-sim-1",
+                "type": "content",
+                "caption": "Quero sim Sun 🤩",
+                "_content_oid": "bloco-10-entrega-link",
+                "is_smart_link": false,
+                "target": null,
+                "webview_size": null,
+                "do_not_track": false
+              },
+              {
+                "_oid": "btn-09-sim-2",
+                "type": "content",
+                "caption": "Libera o link Sun 🔥",
+                "_content_oid": "bloco-10-entrega-link",
+                "is_smart_link": false,
+                "target": null,
+                "webview_size": null,
+                "do_not_track": false
+              },
+              {
+                "_oid": "btn-09-duvida",
+                "type": "content",
+                "caption": "Fiquei com dúvidas",
+                "_content_oid": "bloco-11-fallback-duvida",
+                "is_smart_link": false,
+                "target": null,
+                "webview_size": null,
+                "do_not_track": false
+              }
+            ]
+          }
+        ]
+      },
+
+      {
+        "type": "instagram",
+        "_oid": "bloco-10-entrega-link",
+        "namespace": "SUBSTITUIR_PELO_NS_DO_FLUXO_ABERTO",
+        "caption": "BLOCO 10 — Entrega do link",
+        "content_id": null,
+        "removed": false,
+        "target": null,
+        "private_reply": null,
+        "one_time_notify_reason_id": null,
+        "$fbMessagingType": "INSIDE_24_HOURS",
+        "quick_replies": {
+          "buttons": [],
+          "settings": {
+            "validation_message": null,
+            "skip_button_caption": null,
+            "limit_failed": null,
+            "timeout": null
+          }
+        },
+        "messages": [
+          {
+            "_oid": "msg-10-delay",
+            "type": "delay",
+            "time": 2,
+            "show_typing": false,
+            "keyboard": []
+          },
+          {
+            "_oid": "msg-10-texto-1",
+            "type": "text",
+            "content": {
+              "text": "Uhuuu 🥳🥳🥳 Eu sabia que você não ia perder essa {{cuf_8146798}}!\n\nAqui está o seu link para garantir o ingresso do Lote 1 ⬇️"
+            },
+            "keyboard": []
+          },
+          {
+            "_oid": "msg-10-delay-2",
+            "type": "delay",
+            "time": 3,
+            "show_typing": false,
+            "keyboard": []
+          },
+          {
+            "_oid": "msg-10-link",
+            "type": "text",
+            "content": {
+              "text": "👉🏻 Garanta seu ingresso agora"
+            },
+            "keyboard": [
+              {
+                "_oid": "btn-10-link",
+                "type": "url",
+                "caption": "🎟️ Quero meu ingresso",
+                "url": "https://triwer.com.br/cp-d/",
+                "webview_size": null,
+                "do_not_track": false
+              }
+            ]
+          },
+          {
+            "_oid": "msg-10-delay-3",
+            "type": "delay",
+            "time": 5,
+            "show_typing": false,
+            "keyboard": []
+          },
+          {
+            "_oid": "msg-10-texto-2",
+            "type": "text",
+            "content": {
+              "text": "Nos dias 30 e 31 de maio a gente se vê ao vivo! 🚀🚀\n\nNos vemos no workshop {{cuf_8146798}} 🔥"
+            },
+            "keyboard": []
+          }
+        ]
+      },
+
+      {
+        "type": "action_group",
+        "_oid": "bloco-10b-tag-clique",
+        "namespace": "SUBSTITUIR_PELO_NS_DO_FLUXO_ABERTO",
+        "caption": "BLOCO 10b — Tag: clicou no link",
+        "content_id": null,
+        "removed": false,
+        "target": {
+          "_content_oid": "bloco-10-entrega-link"
+        },
+        "actions": [
+          {
+            "_oid": "acao-10b-tag",
+            "type": "add_tag",
+            "tag_id": 0
+          }
+        ]
+      },
+
+      {
+        "type": "instagram",
+        "_oid": "bloco-11-fallback-duvida",
+        "namespace": "SUBSTITUIR_PELO_NS_DO_FLUXO_ABERTO",
+        "caption": "BLOCO 11 — Fallback: dúvida",
+        "content_id": null,
+        "removed": false,
+        "target": null,
+        "private_reply": null,
+        "one_time_notify_reason_id": null,
+        "$fbMessagingType": "INSIDE_24_HOURS",
+        "quick_replies": {
+          "buttons": [],
+          "settings": {
+            "validation_message": null,
+            "skip_button_caption": null,
+            "limit_failed": null,
+            "timeout": null
+          }
+        },
+        "messages": [
+          {
+            "_oid": "msg-11-delay",
+            "type": "delay",
+            "time": 2,
+            "show_typing": false,
+            "keyboard": []
+          },
+          {
+            "_oid": "msg-11-texto",
+            "type": "text",
+            "content": {
+              "text": "Puxa vida {{cuf_8146798}}! 😅 Por essa eu não esperava não.\n\nMas tudo bem, me fala qual a sua dúvida que eu vou chamar a Chefia aqui pra te ajudar 👇🏻"
+            },
+            "keyboard": []
+          }
+        ]
+      },
+
+      {
+        "type": "action_group",
+        "_oid": "bloco-11b-acoes-duvida",
+        "namespace": "SUBSTITUIR_PELO_NS_DO_FLUXO_ABERTO",
+        "caption": "BLOCO 11b — Ações: notificar admin + abrir conversa",
+        "content_id": null,
+        "removed": false,
+        "target": {
+          "_content_oid": "bloco-11-fallback-duvida"
+        },
+        "actions": [
+          {
+            "_oid": "acao-11b-notify",
+            "type": "notify_admin",
+            "text": "{{full_name}} está com dúvidas sobre o Workshop Funis Orgânicos (IFO26)",
+            "all_send_by": "email",
+            "options": {}
+          },
+          {
+            "_oid": "acao-11b-open",
+            "type": "open_conversation"
+          }
+        ]
+      },
+
+      {
+        "type": "instagram",
+        "_oid": "bloco-12-fallback-nao-quero",
+        "namespace": "SUBSTITUIR_PELO_NS_DO_FLUXO_ABERTO",
+        "caption": "BLOCO 12 — Fallback: não quero",
+        "content_id": null,
+        "removed": false,
+        "target": null,
+        "private_reply": null,
+        "one_time_notify_reason_id": null,
+        "$fbMessagingType": "INSIDE_24_HOURS",
+        "quick_replies": {
+          "buttons": [],
+          "settings": {
+            "validation_message": null,
+            "skip_button_caption": null,
+            "limit_failed": null,
+            "timeout": null
+          }
+        },
+        "messages": [
+          {
+            "_oid": "msg-12-delay",
+            "type": "delay",
+            "time": 2,
+            "show_typing": false,
+            "keyboard": []
+          },
+          {
+            "_oid": "msg-12-texto-1",
+            "type": "text",
+            "content": {
+              "text": "Mai rapaz {{cuf_8146798}} tu vai perder essa oportunidade... 😅😅\n\nMas tudo bem né 😁😁\n\nSó que agora eu to com o coração partido aqui 💔 Onde foi que eu falhei?"
+            },
+            "keyboard": []
+          },
+          {
+            "_oid": "msg-12-delay-2",
+            "type": "delay",
+            "time": 10,
+            "show_typing": false,
+            "keyboard": []
+          },
+          {
+            "_oid": "msg-12-texto-2",
+            "type": "text",
+            "content": {
+              "text": "Tudo bem, eu sei que às vezes falo demais 😅 Vou te deixar em paz...\n\nMas antes de ir, vai lá no feed da Chefia que ela sempre tá soltando conteúdo sobre funil orgânico e vendas no orgânico. Vale a pena acompanhar 🔥\n\nNos vemos no próximo conteúdo 🔥"
+            },
+            "keyboard": []
+          }
+        ]
+      }
+
+    ]
+  },
+  "coordinates": {
+    "bloco-01-saudacao":        { "x": 0,    "y": 0    },
+    "bloco-02-acoes":           { "x": 1400, "y": 0    },
+    "bloco-03-condicao-aluno":  { "x": 2800, "y": 0    },
+    "bloco-04-caminho-aluno":   { "x": 4200, "y": -800 },
+    "bloco-05-aquecimento":     { "x": 4200, "y": 0    },
+    "bloco-06-permissao-demo":  { "x": 5600, "y": 0    },
+    "bloco-07-prova-social":    { "x": 7000, "y": 0    },
+    "bloco-08-smart-delay":     { "x": 8400, "y": 0    },
+    "bloco-09-pitch":           { "x": 9800, "y": 0    },
+    "bloco-10-entrega-link":    { "x": 11200, "y": -800 },
+    "bloco-10b-tag-clique":     { "x": 11200, "y": 0    },
+    "bloco-11-fallback-duvida": { "x": 11200, "y": 800  },
+    "bloco-11b-acoes-duvida":   { "x": 12600, "y": 800  },
+    "bloco-12-fallback-nao-quero": { "x": 11200, "y": 1600 }
+  }
+}

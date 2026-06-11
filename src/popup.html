@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ManyChat Exporter</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0e0e12;
+      --surface: #17171f;
+      --surface2: #1e1e28;
+      --border: #2a2a38;
+      --accent: #7c6af7;
+      --accent2: #f7a26a;
+      --green: #4ade80;
+      --red: #f87171;
+      --text: #e8e8f0;
+      --muted: #6b6b80;
+      --font: 'DM Sans', sans-serif;
+      --mono: 'DM Mono', monospace;
+    }
+
+    body {
+      width: 320px;
+      min-height: 200px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 13px;
+      overflow: hidden;
+    }
+
+    .header {
+      padding: 16px 16px 12px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--surface);
+    }
+
+    .logo {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .header-text h1 {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.2px;
+    }
+
+    .header-text p {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 1px;
+    }
+
+    .body { padding: 14px; }
+
+    /* Status do fluxo */
+    .status-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      background: var(--muted);
+    }
+    .status-dot.found { background: var(--green); box-shadow: 0 0 6px var(--green); }
+    .status-dot.loading { background: var(--accent2); animation: pulse 1s infinite; }
+    .status-dot.error { background: var(--red); }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .status-info { flex: 1; min-width: 0; }
+    .status-label {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-family: var(--mono);
+    }
+    .status-value {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text);
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .refresh-btn {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+      transition: all 0.15s;
+    }
+    .refresh-btn:hover { color: var(--text); border-color: var(--accent); }
+
+    /* Botões de exportação */
+    .export-section {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      font-family: var(--mono);
+      margin-bottom: 2px;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 14px;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      cursor: pointer;
+      transition: all 0.15s;
+      width: 100%;
+      text-align: left;
+      color: var(--text);
+      font-family: var(--font);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn:hover:not(:disabled) {
+      border-color: var(--accent);
+      background: var(--surface2);
+      transform: translateY(-1px);
+    }
+
+    .btn:active:not(:disabled) { transform: translateY(0); }
+
+    .btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .btn-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+
+    .btn-json .btn-icon { background: rgba(124, 106, 247, 0.15); }
+    .btn-html .btn-icon { background: rgba(247, 162, 106, 0.15); }
+
+    .btn-text { flex: 1; }
+    .btn-title {
+      font-size: 13px;
+      font-weight: 600;
+      display: block;
+    }
+    .btn-desc {
+      font-size: 11px;
+      color: var(--muted);
+      display: block;
+      margin-top: 1px;
+    }
+
+    .btn-arrow {
+      font-size: 14px;
+      color: var(--muted);
+      transition: transform 0.15s;
+    }
+    .btn:hover:not(:disabled) .btn-arrow { transform: translateX(2px); color: var(--accent); }
+
+    /* Mensagem de erro / instrução */
+    .hint {
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 11px;
+      line-height: 1.5;
+      display: none;
+    }
+
+    .hint.info {
+      background: rgba(124, 106, 247, 0.08);
+      border: 1px solid rgba(124, 106, 247, 0.2);
+      color: #a89ef7;
+    }
+
+    .hint.success {
+      background: rgba(74, 222, 128, 0.08);
+      border: 1px solid rgba(74, 222, 128, 0.2);
+      color: var(--green);
+    }
+
+    .hint.visible { display: block; }
+
+    .not-manychat {
+      padding: 20px 16px;
+      text-align: center;
+      color: var(--muted);
+    }
+    .not-manychat .emoji { font-size: 28px; margin-bottom: 8px; }
+    .not-manychat p { font-size: 12px; line-height: 1.5; }
+    .not-manychat strong { color: var(--text); }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 12px 0;
+    }
+
+    .stats-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .stat-chip {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 10px;
+      font-family: var(--mono);
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .stat-chip span { color: var(--text); font-weight: 500; }
+
+    /* Seção de importação */
+    .import-section {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .import-textarea {
+      width: 100%;
+      height: 78px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 10px;
+      padding: 9px 11px;
+      resize: vertical;
+      outline: none;
+      line-height: 1.5;
+      transition: border-color 0.15s;
+    }
+
+    .import-textarea:focus { border-color: var(--accent); }
+    .import-textarea::placeholder { color: var(--muted); }
+
+    .btn-import .btn-icon { background: rgba(74, 222, 128, 0.12); }
+
+    .import-status {
+      font-size: 11px;
+      padding: 7px 10px;
+      border-radius: 7px;
+      display: none;
+      line-height: 1.4;
+    }
+
+    .import-status.loading {
+      background: rgba(247, 162, 106, 0.1);
+      border: 1px solid rgba(247, 162, 106, 0.2);
+      color: var(--accent2);
+      display: block;
+    }
+
+    .import-status.success {
+      background: rgba(74, 222, 128, 0.08);
+      border: 1px solid rgba(74, 222, 128, 0.2);
+      color: var(--green);
+      display: block;
+    }
+
+    .import-status.error {
+      background: rgba(248, 113, 113, 0.08);
+      border: 1px solid rgba(248, 113, 113, 0.2);
+      color: var(--red);
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">⚡</div>
+    <div class="header-text">
+      <h1>ManyChat Exporter</h1>
+      <p>Exporta fluxos em JSON ou HTML</p>
+    </div>
+  </div>
+
+  <div id="main-content" class="body" style="display:none;">
+    <div class="status-card">
+      <div class="status-dot" id="status-dot"></div>
+      <div class="status-info">
+        <div class="status-label">Fluxo detectado</div>
+        <div class="status-value" id="flow-name">Abrindo fluxo...</div>
+      </div>
+      <button class="refresh-btn" id="refresh-btn" title="Recarregar">↺</button>
+    </div>
+
+    <div class="stats-row" id="stats-row" style="display:none; margin-bottom:12px;">
+      <div class="stat-chip">Blocos <span id="stat-blocks">—</span></div>
+      <div class="stat-chip">Enviados <span id="stat-sent">—</span></div>
+      <div class="stat-chip">Canal <span id="stat-channel">—</span></div>
+    </div>
+
+    <div class="section-label">Exportar como</div>
+    <div class="export-section">
+      <button class="btn btn-json" id="btn-json" disabled>
+        <div class="btn-icon">{ }</div>
+        <div class="btn-text">
+          <span class="btn-title">JSON</span>
+          <span class="btn-desc">Dados brutos do fluxo</span>
+        </div>
+        <span class="btn-arrow">→</span>
+      </button>
+
+      <button class="btn btn-html" id="btn-html" disabled>
+        <div class="btn-icon">🗺</div>
+        <div class="btn-text">
+          <span class="btn-title">HTML Visual</span>
+          <span class="btn-desc">Canvas interativo com blocos e conexões</span>
+        </div>
+        <span class="btn-arrow">→</span>
+      </button>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section-label">Importar Fluxo</div>
+    <div class="import-section">
+      <textarea class="import-textarea" id="import-json" placeholder='Cole o JSON no formato patchDraft:
+{
+  "batch": { "contents": [...] },
+  "coordinates": { "uuid": { "x": 1000, "y": 1000 } }
+}'></textarea>
+      <button class="btn btn-import" id="btn-import">
+        <div class="btn-icon">⬆</div>
+        <div class="btn-text">
+          <span class="btn-title">Inserir no Canvas</span>
+          <span class="btn-desc">Insere os blocos no fluxo aberto</span>
+        </div>
+        <span class="btn-arrow">→</span>
+      </button>
+      <div class="import-status" id="import-status"></div>
+    </div>
+
+    <div class="hint info" id="hint-no-flow">
+      Abra um fluxo no editor do ManyChat para habilitar a exportação.
+    </div>
+
+    <div class="hint success" id="hint-success">
+      ✓ Download iniciado!
+    </div>
+  </div>
+
+  <div id="not-manychat" style="display:none;">
+    <div class="not-manychat">
+      <div class="emoji">🤖</div>
+      <p>Essa extensão funciona apenas no <strong>ManyChat</strong>.<br>Acesse <strong>app.manychat.com</strong> para usar.</p>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
