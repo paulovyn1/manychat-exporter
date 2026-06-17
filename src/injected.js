@@ -12,6 +12,26 @@
 
   log('Injected script carregado');
 
+  // ── Captura erros JS da página (ex.: erros do parser de blocos do ManyChat) ──
+  window.addEventListener('error', (e) => {
+    log('Erro JS na página', {
+      message: e.message,
+      file: (e.filename || '').split('/').pop(),
+      line: e.lineno,
+      stack: (e.error?.stack || '').substring(0, 500)
+    });
+  });
+
+  window.addEventListener('unhandledrejection', (e) => {
+    const reason = e.reason;
+    log('Promise rejeitada (erro não tratado)', {
+      name: reason?.name,
+      message: reason?.message || String(reason),
+      cause: reason?.cause?.message,
+      stack: (reason?.stack || '').substring(0, 500)
+    });
+  });
+
   // ── Intercepta XHR ──────────────────────────────────────────
   const origOpen = XMLHttpRequest.prototype.open;
   const origSend = XMLHttpRequest.prototype.send;
@@ -78,7 +98,7 @@
     const pageMatch = url.match(/\/(?:fb)?(\d{4,})\//);
     if (!nsMatch || !pageMatch) return { error: 'URL não reconhecida' };
 
-    const ns = nsMatch[1].replace(/^\d+--/, '');
+    const ns = nsMatch[1].replace(/^(\d+--)+/, '');
     const pageId = pageMatch[1];
     log('Extraído', { ns, pageId });
 
@@ -145,9 +165,9 @@
       return { error: 'URL não reconhecida. Abra um fluxo no editor do ManyChat.' };
     }
 
-    // Formato novo do ManyChat pode ser "{id}--content{...}" — extrai só o content{...}
+    // Formato novo do ManyChat pode ter múltiplos prefixos numéricos: "{id}--{id}--content{...}"
     const rawNs = nsMatch[1];
-    const ns = rawNs.replace(/^\d+--/, '');
+    const ns = rawNs.replace(/^(\d+--)+/, '');
     const pageId = pageMatch[1];
     log('Contexto de importação', { rawNs, ns, pageId });
 
@@ -188,6 +208,10 @@
         const data = await resp.json();
         const apiStatus = data?.status;
         log('Importação concluída!', { apiStatus, data });
+        if (data?.state === false) {
+          const errs = Array.isArray(data?.errors) ? data.errors.join(', ') : JSON.stringify(data).substring(0, 150);
+          return { error: `API recusou: ${errs}` };
+        }
         if (apiStatus && apiStatus !== 'success') {
           return { error: `API recusou (status: "${apiStatus}"): ${JSON.stringify(data).substring(0, 150)}` };
         }

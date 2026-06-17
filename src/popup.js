@@ -804,9 +804,9 @@ async function importFlow() {
           return { error: 'URL não reconhecida. Abra um fluxo no editor do ManyChat.' };
         }
 
-        // Formato novo do ManyChat pode ser "{id}--content{...}" — extrai só o content{...}
+        // Formato novo do ManyChat pode ter múltiplos prefixos numéricos: "{id}--{id}--content{...}"
         const rawNs = nsMatch[1];
-        const ns = rawNs.replace(/^\d+--/, '');
+        const ns = rawNs.replace(/^(\d+--)+/, '');
         const pageId = pageMatch[1];
         const csrfToken = window.__INIT__?.['app.csrf_token'] || window.__INIT__?.['csrf_token'] || '';
         const frontendBundle = String(window.STATIC_VERSION || '');
@@ -835,6 +835,10 @@ async function importFlow() {
           if (resp.ok) {
             const data = await resp.json();
             const apiStatus = data?.status;
+            if (data?.state === false) {
+              const errs = Array.isArray(data?.errors) ? data.errors.join(', ') : JSON.stringify(data).substring(0, 150);
+              return { error: `API recusou: ${errs}` };
+            }
             if (apiStatus && apiStatus !== 'success') {
               return { error: `API recusou (status: "${apiStatus}"): ${JSON.stringify(data).substring(0, 150)}` };
             }
@@ -863,6 +867,13 @@ async function importFlow() {
         : '';
       setImportStatus('error', '✗ ' + errMsg + hint);
     }
+
+    // Aguarda um instante para o ManyChat processar a resposta do patchDraft
+    // (é nesse momento que erros como "unknown content type" aparecem) e
+    // mostra os logs capturados, incluindo erros JS da página.
+    await new Promise(res => setTimeout(res, 500));
+    const logs = await getLogs(tab.id);
+    showLogs(logs);
   } catch (e) {
     setImportStatus('error', '✗ ' + e.message);
   } finally {
