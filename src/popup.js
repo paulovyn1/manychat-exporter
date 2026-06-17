@@ -1,4 +1,11 @@
 // popup.js
+// ManyChat Flow Exporter — © Paulo Vinicio (@paulovyn1)
+// Repositório oficial: https://github.com/paulovyn1/manychat-exporter
+// Redistribuição ou modificação não autorizada é proibida.
+
+const AUTHOR = 'Paulo Vinicio (@paulovyn1)';
+const REPO   = 'https://github.com/paulovyn1/manychat-exporter';
+const WA_SUPPORT = '5584987811023';
 
 let flowData = null;
 
@@ -94,6 +101,9 @@ function updateStats(data) {
 }
 
 async function init() {
+  const vEl = document.getElementById('ext-version');
+  if (vEl) vEl.textContent = chrome.runtime.getManifest().version;
+
   const tab = await getCurrentTab();
 
   if (!isManyChat(tab.url)) {
@@ -884,7 +894,18 @@ async function importFlow() {
 function setImportStatus(type, msg) {
   const el = document.getElementById('import-status');
   el.className = 'import-status ' + type;
-  el.textContent = msg;
+
+  if (type === 'error') {
+    const version = chrome.runtime.getManifest().version;
+    const waText = encodeURIComponent(
+      `Olá Paulo! Encontrei um erro na extensão ManyChat Exporter v${version}.\n\nErro:\n${msg}`
+    );
+    el.innerHTML = escapeHtml(msg) +
+      `<a class="wa-link" href="https://wa.me/${WA_SUPPORT}?text=${waText}" target="_blank">` +
+      `📲 Reportar este erro no WhatsApp</a>`;
+  } else {
+    el.textContent = msg;
+  }
 }
 
 init();

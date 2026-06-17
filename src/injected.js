@@ -1,4 +1,8 @@
-// ManyChat Exporter - injected.js v1.6
+// ManyChat Flow Exporter — © Paulo Vinicio (@paulovyn1)
+// Repositório oficial: https://github.com/paulovyn1/manychat-exporter
+// Redistribuição ou modificação não autorizada é proibida.
+//
+// ManyChat Exporter - injected.js v1.9.8
 // Roda no contexto REAL da página — tem acesso ao window.__INIT__, XHR, fetch
 (function () {
   window.__mcLogs = [];

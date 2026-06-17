@@ -329,6 +329,35 @@
       color: var(--red);
       display: block;
     }
+
+    .wa-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+      padding: 7px 10px;
+      background: rgba(37, 211, 102, 0.10);
+      border: 1px solid rgba(37, 211, 102, 0.25);
+      border-radius: 6px;
+      color: #25d366;
+      font-size: 11px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .wa-link:hover { background: rgba(37, 211, 102, 0.18); }
+
+    .footer-sig {
+      margin-top: 14px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 10px;
+      color: var(--muted);
+      font-family: var(--mono);
+    }
+    .footer-sig a { color: var(--muted); text-decoration: none; }
+    .footer-sig a:hover { color: var(--accent); }
   </style>
 </head>
 <body>
@@ -404,6 +433,10 @@
     <div class="hint success" id="hint-success">
       ✓ Download iniciado!
     </div>
+
+    <div class="footer-sig">
+      by <a href="https://github.com/paulovyn1/manychat-exporter" target="_blank">@paulovyn1</a> · v<span id="ext-version"></span>
+    </div>
   </div>
 
   <div id="not-manychat" style="display:none;">
@@ -416,3 +449,4 @@
   <script src="popup.js"></script>
 </body>
 </html>
+<!-- ManyChat Flow Exporter © Paulo Vinicio (@paulovyn1) — github.com/paulovyn1/manychat-exporter -->

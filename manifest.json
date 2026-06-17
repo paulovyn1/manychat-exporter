@@ -1,8 +1,10 @@
 {
   "manifest_version": 3,
   "name": "ManyChat Flow Exporter",
-  "version": "1.9.7",
+  "version": "1.9.8",
   "description": "Exporta fluxos do ManyChat em JSON ou HTML visual",
+  "author": "Paulo Vinicio (@paulovyn1)",
+  "homepage_url": "https://github.com/paulovyn1/manychat-exporter",
   "permissions": [
     "activeTab",
     "scripting",
